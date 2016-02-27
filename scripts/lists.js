@@ -4,42 +4,67 @@
 $(document).ready(function() {
 
     var names = new List();
+    var numbers = new List();
     names.append("akshay");
     names.append("khot");
 
-    print(names.toString());
     names.remove("khot");
-    print(names.toString());
 
     names.insert("khot", "akshay");
-    print(names.toString());
 
     //names.clear();
 
-    print(names.contains("akshay"));
-    print(names.contains("Manchester"));
-
     names.front();
-    print(names.getElement());
     names.append("Don");
     names.append("Draper");
+    names.append("xtra");
     names.next();
     names.next();
-    names.prev();
-    names.end();
 
     //iterate through a list
     for(names.front(); names.currPos() < names.length(); names.next()) {
-        print("iterate " + names.getElement());
+        //print("iterate " + names.getElement());
     }
-    //reverse iterate through the list
-    for(names.end(); names.currPos() >= 0; names.prev()) {
-        print(names.currPos() + " " + names.getElement());
-        if(names.currPos() == 0) {
-            break;
+
+    numbers.append(1);
+    numbers.append(10);
+    numbers.append(34);
+    numbers.append(2);
+    numbers.append(5);
+
+    var person1 = new Person("akshay", "male");
+    var person2 = new Person("kunal", "female");
+    var person3 = new Person("bandya", "male");
+    var person4 = new Person("mangya", "female");
+    var person5 = new Person("amey", "male");
+    var person6 = new Person("abhiyash", "male");
+
+    var people = new List();
+    people.append(person1);
+    people.append(person2);
+    people.append(person3);
+    people.append(person4);
+    people.append(person5);
+    people.append(person6);
+    display(people);
+
+});
+
+//Display people in the same gender
+var display = function(listOfPeople) {
+    var males = [];
+    var females = [];
+    //iterate through people
+    for(listOfPeople.front(); listOfPeople.currPos() < listOfPeople.length(); listOfPeople.next()) {
+        if(listOfPeople.getElement().gender === "female") {
+            females.push(listOfPeople.getElement().name);
+        } else {
+            males.push(listOfPeople.getElement().name);
         }
     }
-});
+    print("Males: " + males);
+    print("Females: " + females);
+};
 
 
 /**
@@ -65,6 +90,7 @@ function List() {
     this.getElement = getElement;
     this.length = length;
     this.contains = contains;
+    this.insertIfLargest = insertIfLargest;
 }
 
 /**
@@ -165,6 +191,52 @@ function moveTo(newPos) {
 function getElement() {
     return this.dataStore[this.pos];
 }
+
+//insert element in the list only if it's larger than all current elements
+function insertIfLargest(element) {
+    this.front();
+    var max = this.getElement();
+
+    //find the largest element in the list
+    for(var i = this.pos + 1; i<this.dataStore.length; i++) {
+        if(isGreater(this.dataStore[i], max)) {
+            print("comparing " + this.dataStore[i] + " with " + max);
+            max = this.dataStore[i];
+        }
+        print(max);
+    }
+
+    //compare element with max element and insert if it's larger
+    if(isGreater(element,max)) {
+        this.append(element);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * helper function to compare two elements
+ * @param element1
+ * @param element2
+ * @return true if element1 > element2, else false
+ */
+function isGreater(element1, element2) {
+    if(typeof element1 == "string" && typeof element2 == "string") {
+        return element1.toLowerCase() > element2.toLowerCase();
+    }
+    return element1>element2;
+}
+
+
+/**
+ * Person constructor
+ * @param name and gender
+ */
+function Person(name, gender) {
+    this.name = name;
+    this.gender = gender;
+}
+
 
 /**
  * abstract print
