@@ -6,16 +6,7 @@
  * Stack: Last-In First-Out
  */
 $(document).ready(function() {
-    var stack = new Stack();
-    stack.push(1);
-    stack.push(15);
-    stack.push(12);
-    stack.push(2);
-    console.log(stack.pop());
-    console.log(stack.peek());
-    stack.display();
-    stack.clear();
-    stack.display();
+    print(baseChange(64, 2));
 
 });
 
@@ -67,7 +58,7 @@ function clear() {
  * return true if stack is empty
  */
 function isEmpty() {
-    return this.dataStore.length === 0;
+    return this.top === 0;
 }
 
 /**
@@ -98,7 +89,24 @@ function print(data) {
     console.log(data);
 }
 
+/**
+ * Change the base from decimal to a given base
+ * @param number
+ * @param newBase
+ */
+function baseChange(number, newBase) {
 
+    var newNumber = "";
+    var myStack = new Stack();
+    while(number !== 0) {
+        myStack.push(number%newBase);
+        number = Math.floor(number/newBase);
+    }
+    while(!myStack.isEmpty()) {
+        newNumber += myStack.pop();
+    }
+    return newNumber;
+}
 
 
 
