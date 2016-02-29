@@ -6,7 +6,7 @@
  * Stack: Last-In First-Out
  */
 $(document).ready(function() {
-    print(baseChange(125, 8));
+    print(baseChange(125, 16));
     print(isPalindrome("dsfbbedf") ? " String is palindrome " : " String is not a palindrome ");
     print(isPalindrome("abccba") ? " String is palindrome " : " String is not a palindrome ");
 
