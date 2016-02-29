@@ -6,7 +6,9 @@
  * Stack: Last-In First-Out
  */
 $(document).ready(function() {
-    print(baseChange(64, 2));
+    print(baseChange(125, 8));
+    print(isPalindrome("dsfbbedf") ? " String is palindrome " : " String is not a palindrome ");
+    print(isPalindrome("abccba") ? " String is palindrome " : " String is not a palindrome ");
 
 });
 
@@ -98,7 +100,7 @@ function baseChange(number, newBase) {
 
     var newNumber = "";
     var myStack = new Stack();
-    while(number !== 0) {
+    while(number > 0) {
         myStack.push(number%newBase);
         number = Math.floor(number/newBase);
     }
@@ -106,6 +108,32 @@ function baseChange(number, newBase) {
         newNumber += myStack.pop();
     }
     return newNumber;
+}
+
+/**
+ * Check if the given text is palindrome or not
+ * @param text
+ * @return true if text is a palindrome, false otherwise
+ */
+function isPalindrome(text) {
+
+    var myStack = new Stack();
+    //get the first letter, push it in the stack
+    for(var j=0; j<Math.floor(text.length/2); j++) {
+        myStack.push(text.charAt(j));
+    }
+
+    var start = Math.floor(text.length/2);
+    //if text length is even, add 1 to start(to ignore the middle element)
+    if(text.length%2 == 1) {
+        start = start+1;
+    }
+    for(var i=start; i<text.length; i++) {
+        if(myStack.pop() !== text.charAt(i)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
