@@ -7,7 +7,7 @@
  */
 $(document).ready(function() {
     print(baseChange(125, 8));
-    print(isPalindrome("dsfbbedf") ? " String is palindrome " : " String is not a palindrome ");
+    print(isPalindrome("racecar") ? " String is palindrome " : " String is not a palindrome ");
     print(isPalindrome("abccba") ? " String is palindrome " : " String is not a palindrome ");
 
 });
@@ -118,22 +118,16 @@ function baseChange(number, newBase) {
 function isPalindrome(text) {
 
     var myStack = new Stack();
-    //get the first letter, push it in the stack
-    for(var j=0; j<Math.floor(text.length/2); j++) {
-        myStack.push(text.charAt(j));
+    //get the first letter, push it in the stack and repeat
+    for(var j=0; j<text.length; j++) {
+        myStack.push(text[j]);
     }
 
-    var start = Math.floor(text.length/2);
-    //if text length is even, add 1 to start(to ignore the middle element)
-    if(text.length%2 == 1) {
-        start = start+1;
+    var reverse = "";
+    while(!myStack.isEmpty()) {
+        reverse += myStack.pop();
     }
-    for(var i=start; i<text.length; i++) {
-        if(myStack.pop() !== text.charAt(i)) {
-            return false;
-        }
-    }
-    return true;
+    return reverse === text;
 }
 
 
