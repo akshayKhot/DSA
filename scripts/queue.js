@@ -13,78 +13,64 @@
  */
 function Queue() {
     this.dataStore = [];
-    this.front = 0;
-    this.back = 0;
+
+    this.enqueue = enqueue;
+    this.dequeue = dequeue;
+    this.front = front;
+    this.back = back;
+    this.isEmpty = isEmpty;
+    this.display = display;
+}
 
     /**
      * add element at the back of the queue
      * @param element
      */
-    this.enqueue = function(element) {
-        this.dataStore[this.back++] = element;
-    };
+    function enqueue(element) {
+        this.dataStore.push(element);
+    }
 
     /**
      * remove and return the element at the front of the queue
      * @return element
      */
-    this.dequeue = function() {
-        //check if the queue is empty, if yes return -1
-        if(this.front == this.back) {
-            say("The queue is empty");
-            return -1;
-        } else {
-            var head = this.dataStore[this.front];
-            //move all elements one step forward
-            for(var i=0; i<this.back-1; i++) {
-                this.dataStore[i] = this.dataStore[i+1];
-            }
-            //update back
-            this.back--;
-            return head;
-        }
-    };
+    function dequeue() {
+        return this.dataStore.shift();
+    }
 
     /**
-     * return the element at the front, without removing it from the queue
+     * Getters for the first and last elements in the queue
      * @returns {*}
      */
-    this.peek = function peek() {
-        return this.dataStore[this.front];
-    };
+    function front() {
+      return this.dataStore[0];
+    }
+    function back() {
+        return this.dataStore[this.dataStore.length-1];
+    }
 
     /**
-     * return the number of elements in the queue
-     * @returns {Number}
+     * returns true if the queue is empty
+     * @returns {boolean}
      */
-    this.length = function() {
-        return this.back - this.front;
-    };
-
-    /**
-     * remove all the elements from the queue.
-     * reset front and back to 0
-     */
-    this.clear = function() {
-        this.dataStore = [];
-        this.front = 0;
-        this.back = 0;
-    };
+    function isEmpty() {
+        return this.dataStore.length === 0;
+    }
 
     /**
      * Display the queue and the front and back positions
      */
-    this.display = function() {
-        say("there are " + this.length() + " elements in the queue.")
+    function display() {
+        say("there are " + this.dataStore.length + " elements in the queue.")
         var output = "front->";
-        for(var i=0; i<this.back; i++) {
+        for(var i=0; i<this.dataStore.length; i++) {
             output += " " + this.dataStore[i] + " ";
         }
         output += "->back";
         say(output);
-        say("front: " + myQueue.front + " back: " + myQueue.back);
-    };
-}
+        say("front: " + myQueue.front() + " back: " + myQueue.back());
+    }
+
 
 
 var myQueue = new Queue();
@@ -96,11 +82,8 @@ myQueue.enqueue(10);
 myQueue.enqueue(23);
 myQueue.display();
 
-say("The next element to be removed is: " + myQueue.peek());
+say("The next element to be removed is: " + myQueue.front());
 say("removed element: " + myQueue.dequeue());
-myQueue.display();
-
-myQueue.clear();
 myQueue.display();
 
 function say(data) {
