@@ -148,6 +148,17 @@ function factorial(number) {
     return fact;
 }
 
+/**
+ * Takes an arithmetic expression as an argument
+ * and returns the position in the expression where a parenthesis is missing.
+ * e.g for (a+b it will return 4.
+ * @param expr arithmetic expression
+ * @return location where para is missing
+ */
+function findMissingPara(expr) {
+
+}
+
 
 
 
