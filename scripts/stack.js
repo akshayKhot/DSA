@@ -9,6 +9,7 @@ $(document).ready(function() {
     print(baseChange(125, 16));
     print(isPalindrome("racecar") ? " String is palindrome " : " String is not a palindrome ");
     print(isPalindrome("abccba") ? " String is palindrome " : " String is not a palindrome ");
+    print("factorial of 6 is " + factorial(6));
 });
 
 /**
@@ -129,6 +130,23 @@ function isPalindrome(text) {
     return reverse === text;
 }
 
+/**
+ * Find the factorial of the given number using recursion
+ * @param number
+ * @return fact = factorial of number
+ */
+function factorial(number) {
+    var fact = 1;
+    var myStack = new Stack();
+
+    while(number > 1) {
+        myStack.push(number--)
+    }
+    while(!myStack.isEmpty()) {
+        fact *= myStack.pop();
+    }
+    return fact;
+}
 
 
 
