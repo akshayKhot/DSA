@@ -71,21 +71,28 @@ function Queue() {
         say("front: " + myQueue.front() + " back: " + myQueue.back());
     }
 
-
-
-var myQueue = new Queue();
-myQueue.enqueue(5);
-myQueue.enqueue(10);
-myQueue.enqueue(23);
-myQueue.enqueue(5);
-myQueue.enqueue(10);
-myQueue.enqueue(23);
-myQueue.display();
-
-say("The next element to be removed is: " + myQueue.front());
-say("removed element: " + myQueue.dequeue());
-myQueue.display();
-
 function say(data) {
       console.log(data);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
