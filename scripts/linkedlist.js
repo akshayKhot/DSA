@@ -11,6 +11,7 @@
 function Node(data) {
     this.data = data;
     this.next = null;
+    this.previous = null;
 }
 
 function LinkedList() {
@@ -20,7 +21,9 @@ function LinkedList() {
     this.add = add;
     this.findPrevious = findPrevious;
     this.remove = remove;
+    this.findLast = findLast;
     this.display = display;
+    this.displayReverse = displayReverse;
 }
 
 /**
@@ -45,7 +48,19 @@ function add(data, previous) {
     var newNode = new Node(data);
     var prevNode = this.find(previous);
     newNode.next = prevNode.next;
+    newNode.previous = prevNode;
     prevNode.next = newNode;
+}
+
+/**
+ * find the last element in the list
+ */
+function findLast() {
+    var current = this.head;
+    while(current.next !== null) {
+        current = current.next;
+    }
+    return current;
 }
 
 /**
@@ -64,6 +79,22 @@ function display() {
 }
 
 /**
+ * Display this linked list in reverse order
+ */
+function displayReverse() {
+    var output = "";
+    var current = this.findLast();
+    output += current.data + "->";
+    while(current.previous.data !== "header") {
+        current = current.previous;
+        output += current.data + "->";
+    }
+    output += "header";
+    say(output);
+}
+
+
+/**
  * find the previous node of the node with the given data
  * return {node} previous to the given data
  */
@@ -80,10 +111,13 @@ function findPrevious(data) {
  * @param data to remove
  */
 function remove(data) {
-    var prevNode = this.findPrevious(data);
-    if(prevNode.next !== null) {
-        var toRemove = prevNode.next;
+    var toRemove = this.find(data);
+    if(toRemove.next !== null) {
+        var prevNode = toRemove.previous;
+        toRemove.next.previous = prevNode;
         prevNode.next = toRemove.next;
+        toRemove.next = null;
+        toRemove.prev = null;
     }
 }
 
@@ -101,5 +135,4 @@ myLink.add(1, "header");
 myLink.add(2,1);
 myLink.add(3,2);
 myLink.display();
-myLink.remove(1);
-myLink.display();
+myLink.displayReverse();
