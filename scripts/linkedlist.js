@@ -15,12 +15,14 @@ function Node(data) {
 
 function LinkedList() {
     this.head = new Node("header");
+    this.current = this.head;
 
     this.find = find;
     this.add = add;
     this.findPrevious = findPrevious;
     this.remove = remove;
     this.display = display;
+    this.advance = advance;
 }
 
 /**
@@ -59,7 +61,10 @@ function display() {
         current = current.next;
         output += current.data + "->";
     }
-    output += "null";
+    output += "null\n";
+    if(this.current !== null) {
+        output += "current node: " + this.current.data;
+    }
     say(output);
 }
 
@@ -95,6 +100,21 @@ function say(data) {
     console.log(data);
 }
 
+/**
+ * advance a certain number of nodes
+ * @param number of nodes to advance
+ */
+function advance(number) {
+    say("before advancing, current: " + this.current.data);
+    while(number > 0 && this.current !== null) {
+        this.current = this.current.next;
+        number -= 1;
+    }
+    if(this.current === null) {
+        say("reached end of list");
+    }
+}
+
 var myLink = new LinkedList();
 myLink.display();
 myLink.add(1, "header");
@@ -102,4 +122,10 @@ myLink.add(2,1);
 myLink.add(3,2);
 myLink.display();
 myLink.remove(1);
+myLink.display();
+myLink.add(10,3);
+myLink.add(23,10);
+myLink.add(5,23);
+myLink.display();
+myLink.advance(6);
 myLink.display();
